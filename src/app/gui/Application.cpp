@@ -57,11 +57,11 @@ int Application::Init()
                                     g_PresentQueueFamily);
 
     vulkanWindow->addVertices(vulkanWindow->verticesAll);
-    // for (int i = 0; i < 10; i++)
+    // for (int i = 0; i < 100000; i++)
     // {
-    //     vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}});
-    //     vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}});
-    //     vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}});
+    //     vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}});
+    //     vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}});
+    //     vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}});
     // }
     vulkanWindow->updateIndexBuffer();
 
@@ -221,22 +221,18 @@ void Application::Run()
                 // vulkanWindow->vertices[5].pos[2] = f2;
                 vulkanWindow->updateIndexBuffer();
             }
-            if (f2 < -1)
-            {
-                vulkanWindow->numVerts = 0;
-                vulkanWindow->numInts = 0;
-                // vulkanWindow->vertices.clear();
-                // vulkanWindow->indices.clear();
-                // vulkanWindow->vertices.resize(1000000);
-                // vulkanWindow->indices.resize(1000000);
-                for (int i = 0; i < 100000; i++)
-                {
-                    vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}});
-                    vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}});
-                    vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}});
-                }
-                vulkanWindow->updateIndexBuffer();
-            }
+            // if (f2 < -1)
+            // {
+            //     vulkanWindow->numVerts = 0;
+            //     vulkanWindow->numInts = 0;
+            //     for (int i = 0; i < 100000; i++)
+            //     {
+            //         vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}});
+            //         vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}});
+            //         vulkanWindow->addVertex({{dis(r_eng), dis(r_eng), dis(r_eng)}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}});
+            //     }
+            //     vulkanWindow->updateIndexBuffer();
+            // }
 
             ImGui::End();
         }
