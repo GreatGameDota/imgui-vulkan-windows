@@ -264,6 +264,11 @@ void Application::Run()
         if (!main_is_minimized)
             FramePresent(wd);
 
+        if (glfwGetWindowAttrib(vulkanWindow->m_Window2, GLFW_ICONIFIED) != 0)
+        {
+            // ImGui_ImplGlfw_Sleep(10);
+            continue;
+        }
         vulkanWindow->drawFrame2();
     }
     running = false;
