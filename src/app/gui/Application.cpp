@@ -201,26 +201,26 @@ void Application::Run()
 
             static float f1 = -0.5f;
             ImGui::SliderFloat("slider float", &f1, -2.0f, 2.0f, "ratio = %.3f");
-            if (vulkanWindow->vertices[0].pos[0] != f1)
-            {
-                vulkanWindow->vertices[0].pos[0] = f1;
-                vulkanWindow->vertices[3].pos[0] = f1;
-                // vulkanWindow->vertices[4].pos[0] = f1;
-                // vulkanWindow->vertices[5].pos[0] = f1;
-                vulkanWindow->updateIndexBuffer();
-            }
+            // if (vulkanWindow->vertices[0].pos[0] != f1)
+            // {
+            //     vulkanWindow->vertices[0].pos[0] = f1;
+            //     vulkanWindow->vertices[3].pos[0] = f1;
+            //     // vulkanWindow->vertices[4].pos[0] = f1;
+            //     // vulkanWindow->vertices[5].pos[0] = f1;
+            //     vulkanWindow->updateIndexBuffer();
+            // }
             static float f2 = 0.0f;
             ImGui::SliderFloat("slider float2", &f2, -2.0f, 2.0f, "ratio = %.3f");
-            if (vulkanWindow->vertices[0].pos[2] != f2)
-            {
-                vulkanWindow->vertices[0].pos[2] = f2;
-                vulkanWindow->vertices[1].pos[2] = f2;
-                vulkanWindow->vertices[2].pos[2] = f2;
-                vulkanWindow->vertices[3].pos[2] = f2;
-                // vulkanWindow->vertices[4].pos[2] = f2;
-                // vulkanWindow->vertices[5].pos[2] = f2;
-                vulkanWindow->updateIndexBuffer();
-            }
+            // if (vulkanWindow->vertices[0].pos[2] != f2)
+            // {
+            //     vulkanWindow->vertices[0].pos[2] = f2;
+            //     vulkanWindow->vertices[1].pos[2] = f2;
+            //     vulkanWindow->vertices[2].pos[2] = f2;
+            //     vulkanWindow->vertices[3].pos[2] = f2;
+            //     // vulkanWindow->vertices[4].pos[2] = f2;
+            //     // vulkanWindow->vertices[5].pos[2] = f2;
+            //     vulkanWindow->updateIndexBuffer();
+            // }
             // if (f2 < -1)
             // {
             //     vulkanWindow->numVerts = 0;

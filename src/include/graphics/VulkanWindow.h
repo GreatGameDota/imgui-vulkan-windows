@@ -1356,9 +1356,11 @@ public:
         UniformBufferObject ubo{};
         // ubo.model = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         ubo.model = glm::mat4(1.0f);
-        ubo.view = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        ubo.proj = glm::perspective(glm::radians(90.0f), 640.0f / 480.0f, 0.1f, 10.0f); // m_SwapChainExtent2.width / (float)m_SwapChainExtent2.height
-        // ubo.proj[1][1] *= -1;
+        ubo.view = glm::lookAt(glm::vec3(0.0f, 0.0f, 240.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        // frustumHeight = 2.0f * distance * Tan(camera.fieldOfView * 0.5f); Tan(90 * 0.5) = 1
+        // width = frustumHeight * (640 / 480) = 1.33333
+        ubo.proj = glm::perspective(glm::radians(90.0f), 640.0f / 480.0f, 0.01f, 1000.0f); // m_SwapChainExtent2.width / (float)m_SwapChainExtent2.height
+        ubo.proj[1][1] *= -1;
 
         void *data;
         vkMapMemory(m_Device, m_UniformBuffersMemory2[currentImage], 0, sizeof(ubo), 0, &data);
@@ -1424,8 +1426,8 @@ public:
     std::vector<uint32_t> indices;
     uint32_t numVerts = 0;
     uint32_t numInts = 0;
-    float x = -0.5, y = 0.5, width = 240 / 128., height = 48 / 128.;
-    float x2 = 0, y2 = 0, width2 = 240 / 128., height2 = 60 / 128.;
+    float x = 200 - 320, y = (-1 * 56) + 240, width = 240, height = 48;
+    float x2 = 200 - 320, y2 = (-1 * 382) + 240, width2 = 240, height2 = 60;
     std::vector<Vertex> verticesAll = {
         {{x,         y - height, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.25f, 0.09375f}}, // 48 / 512
         {{x + width, y - height, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.484375f, 0.09375f}}, // 240 / 1024 + 0.25
@@ -1448,16 +1450,8 @@ public:
         // {{-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
         // {{-1.0f, -1.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
 
-        {{0.0f, 0.0f, -0.5f}, {1.0f, 0.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
-        {{1.0f, 0.0f, 0.5f}, {0.0f, 1.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
-        {{1.0f, 1.0f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {-1.0f, -1.0f}},
-
-        {{0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
-        {{0.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
-        {{0.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {-1.0f, -1.0f}},
-
-        {{0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
-        {{0.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
-        {{1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {-1.0f, -1.0f}},
+        {{-320.0f, -240.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {-1.0f, -1.0f}},
+        {{320.0f, -240.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
+        {{320.0f, 240.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {-1.0f, -1.0f}},
     };
 };

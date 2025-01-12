@@ -14,7 +14,7 @@ void VulkanWindow::initWindow()
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     //    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-    m_Window2 = glfwCreateWindow(800, 600, "Vulkan2", nullptr, nullptr);
+    m_Window2 = glfwCreateWindow(640, 480, "Vulkan2", nullptr, nullptr);
     glfwSetWindowUserPointer(m_Window2, this);
     glfwSetFramebufferSizeCallback(m_Window2, framebufferResizeCallback2);
 }
