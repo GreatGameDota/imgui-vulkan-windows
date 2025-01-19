@@ -1,5 +1,3 @@
-#include "Application.h"
-
 #include "gui/Application.h"
 
 static std::default_random_engine r_eng;

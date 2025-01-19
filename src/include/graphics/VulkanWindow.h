@@ -248,7 +248,7 @@ public:
     void createTextureImage()
     {
         int texWidth, texHeight, texChannels;
-        stbi_uc *pixels = stbi_load((AssetsDir + "/textures/test.png").c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
+        stbi_uc *pixels = stbi_load((AssetsDir + "/textures/output-onlinepngtools.png").c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
         VkDeviceSize imageSize = texWidth * texHeight * 4;
 
         if (!pixels)
@@ -954,7 +954,7 @@ public:
 
         VkPipelineDepthStencilStateCreateInfo depthStencil{};
         depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-        depthStencil.depthTestEnable = VK_TRUE;
+        depthStencil.depthTestEnable = VK_FALSE;
         depthStencil.depthWriteEnable = VK_TRUE;
         depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
         depthStencil.depthBoundsTestEnable = VK_FALSE;
@@ -1426,32 +1426,30 @@ public:
     std::vector<uint32_t> indices;
     uint32_t numVerts = 0;
     uint32_t numInts = 0;
-    float x = 200 - 320, y = (-1 * 56) + 240, width = 240, height = 48;
+    float x = 200 - 320, y = (-1 * 56) + 240, width = 350, height = 350;
     float x2 = 200 - 320, y2 = (-1 * 382) + 240, width2 = 240, height2 = 60;
     std::vector<Vertex> verticesAll = {
-        {{x,         y - height, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.25f, 0.09375f}}, // 48 / 512
-        {{x + width, y - height, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.484375f, 0.09375f}}, // 240 / 1024 + 0.25
-        {{x + width, y         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.484375f, 0.0f}},
-        {{x + width, y         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.484375f, 0.0f}},
-        {{x,         y         , 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.25f, 0.0f}},
-        {{x,         y - height, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.25f, 0.09375f}},
-
-        {{x2,         y2 - height2, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.5f, 0.1171875f}}, // 60 / 512
-        {{x2 + width2, y2 - height2, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.734375f, 0.1171875f}}, // 240 / 1024 + 0.5
-        {{x2 + width2, y2         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.734375f, 0.0f}},
-        {{x2 + width2, y2         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.734375f, 0.0f}},
-        {{x2,         y2         , 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.0f}},
-        {{x2,         y2 - height2, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.5f, 0.1171875f}},
-
-        // {{-1.0f, -1.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
-        // {{0.0f, -1.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
-        // {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
-        // {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
-        // {{-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
-        // {{-1.0f, -1.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
 
         {{-320.0f, -240.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {-1.0f, -1.0f}},
         {{320.0f, -240.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
         {{320.0f, 240.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {-1.0f, -1.0f}},
+
+        {{x,         y - height, 0.0f}, {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}}, // 48 / 512
+        {{x + width, y - height, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}}, // 240 / 1024 + 0.25
+        {{x + width, y         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
+        {{x + width, y         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
+        {{x,         y         , 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
+        {{x,         y - height, 0.0f}, {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+
+        {{-320.0f, 240.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {-1.0f, -1.0f}},
+        {{320.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {-1.0f, -1.0f}},
+        {{-320.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {-1.0f, -1.0f}},
+
+        // {{x2,         y2 - height2, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.5f, 0.1171875f}}, // 60 / 512
+        // {{x2 + width2, y2 - height2, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.734375f, 0.1171875f}}, // 240 / 1024 + 0.5
+        // {{x2 + width2, y2         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.734375f, 0.0f}},
+        // {{x2 + width2, y2         , 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.734375f, 0.0f}},
+        // {{x2,         y2         , 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.0f}},
+        // {{x2,         y2 - height2, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.5f, 0.1171875f}},
     };
 };
