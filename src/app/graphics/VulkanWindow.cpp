@@ -34,15 +34,12 @@ void VulkanWindow::initVulkan()
     createDepthResources2();
 
     createFramebuffers2();
-    createTextureImage();
-    createTextureImageView();
-    createTextureSampler();
     createUniformBuffers2();
     createDescriptorPool2();
-    createDescriptorSets2();
     createCommandBuffers2();
     createSyncObjects2();
 
+    createTexture();
     updateIndexBuffer();
 }
 

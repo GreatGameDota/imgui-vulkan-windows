@@ -1041,6 +1041,14 @@ public:
         endSingleTimeCommands(commandBuffer, m_CommandPool2);
     }
 
+    void clearVertices()
+    {
+        vertices.clear();
+        indices.clear();
+        numVerts = 0;
+        numInts = 0;
+    }
+
     void addVertex(Vertex &&v)
     {
         // vertices[numVerts] = v;
@@ -1196,11 +1204,30 @@ public:
         poolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
         poolInfo.pPoolSizes = poolSizes.data();
         poolInfo.maxSets = static_cast<uint32_t>(m_SwapChainImageViews2.size());
+        poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
 
         if (vkCreateDescriptorPool(m_Device, &poolInfo, nullptr, &m_DescriptorPool2) != VK_SUCCESS)
         {
             throw std::runtime_error("failed to create descriptor pool!");
         }
+    }
+
+    void removeTexture()
+    {
+        vkDeviceWaitIdle(m_Device);
+        vkFreeDescriptorSets(m_Device, m_DescriptorPool2, static_cast<uint32_t>(m_DescriptorSets2.size()), m_DescriptorSets2.data());
+        vkDestroySampler(m_Device, m_TextureSampler, nullptr);
+        vkDestroyImageView(m_Device, m_TextureImageView, nullptr);
+        vkDestroyImage(m_Device, m_TextureImage, nullptr);
+        vkFreeMemory(m_Device, m_TextureImageMemory, nullptr);
+    }
+
+    void createTexture()
+    {
+        createTextureImage();
+        createTextureImageView();
+        createTextureSampler();
+        createDescriptorSets2();
     }
 
     void createDescriptorSets2()
