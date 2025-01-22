@@ -125,8 +125,8 @@ public:
                  VkDevice g_Device,
                  VkQueue g_GraphicsQueue,
                  VkQueue g_PresentQueue,
-                 uint32_t g_PresentQueueFamily,
-                 uint32_t g_GraphicsQueueFamily)
+                 uint32_t g_GraphicsQueueFamily,
+                 uint32_t g_PresentQueueFamily)
         : m_Instance{g_Instance},
           m_PhysicalDevice{g_PhysicalDevice},
           m_Device{g_Device},
