@@ -12,6 +12,8 @@ void main() {
     if (fragTexCoord.x == -1.0)
     {
         outColor = fragColor;
+        if (outColor.w == 0)
+            discard;
         return;
     }
     if (baseColor.w == 0)

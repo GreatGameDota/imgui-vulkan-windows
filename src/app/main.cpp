@@ -1,11 +1,13 @@
 
 #include "Application.h"
 
-Application app;
+Application *app;
 
 int main()
 {
-    app.Init();
-    app.Run();
+    app = new Application();
+    app->Init();
+    app->Run();
+    delete app;
     return 0;
 }
