@@ -256,15 +256,16 @@ public:
 #endif
 
             const float queue_priority[] = {1.0f};
-            std::vector<VkDeviceQueueCreateInfo> queueCreateInfos(2);
-            queueCreateInfos[0].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-            queueCreateInfos[0].queueFamilyIndex = g_QueueFamily;
-            queueCreateInfos[0].queueCount = 1;
-            queueCreateInfos[0].pQueuePriorities = queue_priority;
-            queueCreateInfos[1].sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-            queueCreateInfos[1].queueFamilyIndex = g_PresentQueueFamily;
-            queueCreateInfos[1].queueCount = 1;
-            queueCreateInfos[1].pQueuePriorities = queue_priority;
+            std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
+            std::set<uint32_t> uniqueQueueFamilies = { g_QueueFamily, g_QueueFamily };
+            for (uint32_t queueFamily : uniqueQueueFamilies) {
+                VkDeviceQueueCreateInfo queueCreateInfo{};
+                queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+                queueCreateInfo.queueFamilyIndex = queueFamily;
+                queueCreateInfo.queueCount = 1;
+                queueCreateInfo.pQueuePriorities = queue_priority;
+                queueCreateInfos.push_back(queueCreateInfo);
+            }
 
             VkPhysicalDeviceFeatures deviceFeatures{};
             deviceFeatures.samplerAnisotropy = VK_TRUE;
@@ -339,7 +340,7 @@ public:
 
         // Create SwapChain, RenderPass, Framebuffer, etc.
         IM_ASSERT(g_MinImageCount >= 2);
-        ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance, g_PhysicalDevice, g_Device, wd, g_QueueFamily, g_Allocator, width, height, g_MinImageCount);
+        ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance, g_PhysicalDevice, g_Device, wd, g_QueueFamily, g_Allocator, width, height, g_MinImageCount, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);
     }
 
     void CleanupVulkan()
@@ -447,7 +448,7 @@ public:
             return;
         }
         check_vk_result(err);
-        wd->SemaphoreIndex = (wd->SemaphoreIndex + 1) % wd->ImageCount; // Now we can use the next set of semaphores
+        wd->SemaphoreIndex = (wd->SemaphoreIndex + 1) % wd->SemaphoreCount; // Now we can use the next set of semaphores
     }
 
     // Helper function to find Vulkan memory type bits. See ImGui_ImplVulkan_MemoryType() in imgui_impl_vulkan.cpp
